@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import { BrowserRouter , Route,Routes } from 'react-router-dom';
 import NavBar from './Components/NavBar';
@@ -5,11 +6,12 @@ import Shop from "./Pages/Shop";
 import ShopCategory from './Pages/ShopCategory';
 import Product from "./Pages/Product";
 import Cart from './Pages/Cart';
-import LoginSingup from './Pages/LoginSingup';
+import LoginSignup from './Pages/LoginSingup';
 import Footer from './Components/Footer';
 import men_banner from './Components/Assets/Frontend_Assets/banner_mens.png'
 import women_banner from './Components/Assets/Frontend_Assets/banner_women.png'
 import kid_banner from './Components/Assets/Frontend_Assets/banner_kids.png'
+
 function App() {
   return (
     <div className="App">
@@ -26,7 +28,7 @@ function App() {
         </Route>
 
         <Route path='/cart' element={<Cart/>} />
-        <Route path='/loginsignup' element={<LoginSingup/>} />
+        <Route path='/loginsignup' element={<LoginSignup/>} />
       </Routes>
       <Footer/>
       </BrowserRouter>
