@@ -5,7 +5,7 @@ import stardull_icon from './Assets/Frontend_Assets/star_dull_icon.png'
 const ProductDisplay = (props) => {
     const {product}=props;
   return (
-    <div className='flex my-44'>
+    <div className='flex my-44 mx-11'>
       <div className='flex gap-4'>
         <div className='flex flex-col gap-4'>
             <img src={product.image} alt="" />
@@ -17,9 +17,9 @@ const ProductDisplay = (props) => {
             <img className='w-screen' src={product.image} alt="" />
         </div>
       </div>
-      <div>
-        <h1>{product.name}</h1>
-        <div>
+      <div className=' flex flex-col m-4'>
+        <h1 className='text-4xl font-medium '>{product.name}</h1>
+        <div className='flex items-center gap-1 mt-3'>
             <img src={star_icon} alt="" />
             <img src={star_icon} alt="" />
             <img src={star_icon} alt="" />
@@ -27,25 +27,25 @@ const ProductDisplay = (props) => {
             <img src={stardull_icon} alt="" />
             <p>122</p>
         </div>
-        <div>
-          <div>${product.old_price}</div>
-          <div>${product.new_price}</div>
+        <div className='flex mx-10 gap-7 font-bold text-xl'>
+          <div className='text-red-700 line-through'> ${product.old_price}</div>
+          <div className='text-2xl'>${product.new_price}</div>
         </div>
         <div>
           A lightweight ,usually knitted pullover shirt , close fitting and a round neckline and shortsleeves gives a chic look to one wearing it
         </div>
-        <div>
-          <h1>Size</h1>
-          <div>
-            <div>Small</div>
-            <div>Medium</div>
-            <div>Large</div>
-            <div>XL</div>
-            <div>XXL</div>
+        <div className=''>
+          <h1 className='mt-12 font-semibold text-xl text-green-800'>Size</h1>
+          <div className='flex m-7 gap-5'>
+            <div className='rounded-xl cursor-pointer px-4 py-3 bg-green-50 border-emerald-900'>Small</div>
+            <div className='rounded-xl cursor-pointer px-4 py-3 bg-green-50 border-emerald-900'>Medium</div>
+            <div className='rounded-xl cursor-pointer px-4 py-3 bg-green-50 border-emerald-900'>Large</div>
+            <div className='rounded-xl cursor-pointer px-4 py-3 bg-green-50 border-emerald-900'>XL</div>
+            <div className='rounded-xl cursor-pointer px-4 py-3 bg-green-50 border-emerald-900'>XXL</div>
           </div>
         </div>
-        <button>Add TO Cart</button>
-        <p><span>Category:</span>Women,Tshirt,Crop Top</p>
+        <button className='px-5 py-4 font-medium m-4 w-1/2 text-2xl rounded-3xl cursor-pointer text-white bg-red-500'>Add To Cart</button>
+        <p className='mt-2 cursor '><span>Category:</span>Women,Tshirt,Crop Top</p>
         <p><span>Tags:</span>Modern,Latest</p>
       </div>
     </div>
