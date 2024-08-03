@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const items = (props) => {
+const Items = (props) => {
   return (
-    <div>
-      <Link to={`/product/${props.id}`} ><img src={props.image} alt="" /></Link> 
+    <div className='hover:scale-105 mx-2'>
+      <Link to={`/product/${props.id}`} ><img onClick={window.scrollTo(0,0)} src={props.image} alt="" /></Link> 
       <p>{props.name}</p>
       <div className='flex'>
         <div className='font-semibold text-xl'>
@@ -18,4 +18,4 @@ const items = (props) => {
   )
 }
 
-export default items
+export default Items

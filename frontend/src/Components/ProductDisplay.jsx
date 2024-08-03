@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import star_icon from './Assets/Frontend_Assets/star_icon.png'
 import stardull_icon from './Assets/Frontend_Assets/star_dull_icon.png'
+import { ShopContext } from '../Context/ShopContext';
 
 const ProductDisplay = (props) => {
     const {product}=props;
+    const {addToCart}=useContext(ShopContext)
   return (
     <div className='flex my-44 mx-11'>
       <div className='flex gap-4'>
@@ -28,8 +30,8 @@ const ProductDisplay = (props) => {
             <p>122</p>
         </div>
         <div className='flex mx-10 gap-7 font-bold text-xl'>
-          <div className='text-red-700 line-through'> ${product.old_price}</div>
-          <div className='text-2xl'>${product.new_price}</div>
+          <div className='line-through text-slate-400'> ${product.old_price}</div>
+          <div className='text-2xl text-red-600'>${product.new_price}</div>
         </div>
         <div>
           A lightweight ,usually knitted pullover shirt , close fitting and a round neckline and shortsleeves gives a chic look to one wearing it
@@ -44,8 +46,8 @@ const ProductDisplay = (props) => {
             <div className='rounded-xl cursor-pointer px-4 py-3 bg-green-50 border-emerald-900'>XXL</div>
           </div>
         </div>
-        <button className='px-5 py-4 font-medium m-4 w-1/2 text-2xl rounded-3xl cursor-pointer text-white bg-red-500'>Add To Cart</button>
-        <p className='mt-2 cursor '><span>Category:</span>Women,Tshirt,Crop Top</p>
+        <button onClick={()=>{addToCart(product.id)}} className='px-5 py-4 font-medium m-4 w-1/2 text-2xl rounded-3xl cursor-pointer text-white bg-red-500'>Add To Cart</button>
+        <p className='mt-2 cursor-pointer'><span className='font-semibold'>Category:</span>Women,Tshirt,Crop Top</p>
         <p><span>Tags:</span>Modern,Latest</p>
       </div>
     </div>
