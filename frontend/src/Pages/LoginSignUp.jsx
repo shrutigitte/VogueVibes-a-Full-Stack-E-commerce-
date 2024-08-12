@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LoginSignup = () => {
+const LoginSignUp = () => {
   return (
     <div className='w-full pt-24 pb-24 bg-fuchsia-100 mb-6'>
       <div className='w-1/3 bg-teal-100 m-auto px-10 py-10'>
@@ -21,5 +21,4 @@ const LoginSignup = () => {
   )
 }
 
-
-export default LoginSignup
+export default LoginSignUp

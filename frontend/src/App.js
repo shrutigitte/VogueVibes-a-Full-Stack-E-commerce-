@@ -6,11 +6,12 @@ import Shop from "./Pages/Shop";
 import ShopCategory from './Pages/ShopCategory';
 import Product from "./Pages/Product";
 import Cart from './Pages/Cart';
-import LoginSignup from './Pages/LoginSingup';
+
 import Footer from './Components/Footer';
 import men_banner from './Components/Assets/Frontend_Assets/banner_mens.png'
 import women_banner from './Components/Assets/Frontend_Assets/banner_women.png'
 import kid_banner from './Components/Assets/Frontend_Assets/banner_kids.png'
+import LoginSignUp from './Pages/LoginSignUp';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
         </Route>
 
         <Route path='/cart' element={<Cart/>} />
-        <Route path='/loginsignup' element={<LoginSignup/>} />
+        <Route path='/loginsignup' element={<LoginSignUp/>} />
       </Routes>
       <Footer/>
       </BrowserRouter>
