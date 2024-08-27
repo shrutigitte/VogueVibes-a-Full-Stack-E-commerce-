@@ -19,7 +19,7 @@ const NavBar = () => {
                  <li onClick={()=>setMenu("shop")}> <Link to='/' >Shop</Link> {menu==="shop"?<hr />:<></>}</li> 
                 <li onClick={()=>setMenu("men")}> <Link to='/men'> Men</Link> {menu==="men"? <hr />:<></>}</li>
                 <li onClick={()=>setMenu("women")}> <Link to='/women'>Women</Link>  {menu==="women" ? <hr />:<></>}</li>
-                <li onClick={()=>setMenu("kids")}> <Link to='/kids'>Kids</Link> {menu==="kids" ? <hr />:<></>}</li>
+                <li onClick={()=>setMenu("kid")}> <Link to='/kid'>Kids</Link> {menu==="kid" ? <hr />:<></>}</li>
             </ul>
             <div className='flex'>
                 <Link to='/loginsignup'><button className='lg:h-10 lg:w-20 h-7 w-12 -mt-1 ml-2 border border-teal-500 rounded-2xl p-1 bg-teal-600 hover:bg-teal-500 active:bg-teal-400 text-white font-medium' >Login</button></Link> 
