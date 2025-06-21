@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ShopContext } from '../Context/ShopContext';
 import { useNavigate } from 'react-router-dom';
+import Confetti from 'react-confetti';
 
 const Checkout = () => {
   const { getTotalCartAmount } = useContext(ShopContext);
@@ -8,12 +9,18 @@ const Checkout = () => {
 
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    alert(`Order placed successfully! Confirmation sent to ${email}`);
-    navigate('/');
+
+    // Show success and confetti
+    setShowSuccess(true);
+
+    setTimeout(() => {
+      setShowSuccess(false);
+      navigate('/');
+    }, 6000);
   };
 
   // Delivery date: 3 days from today
@@ -27,7 +34,9 @@ const Checkout = () => {
   });
 
   return (
-    <div className="flex flex-col items-center mt-20 p-6 max-w-2xl mx-auto bg-white shadow-lg rounded-lg">
+    <div className="relative min-h-screen flex flex-col items-center mt-20 p-6 max-w-2xl mx-auto bg-white shadow-lg rounded-lg">
+      {showSuccess && <Confetti />}
+
       <h1 className="text-3xl font-bold text-purple-700 mb-6">Checkout</h1>
 
       <form className="w-full" onSubmit={handleSubmit}>
@@ -57,7 +66,7 @@ const Checkout = () => {
 
         <div className="mb-6">
           <p className="text-lg font-medium text-gray-700">
-            Total Amount: <span className="text-purple-700 font-bold">₹{getTotalCartAmount()}</span>
+            Total Amount: <span className="text-purple-700 font-bold">${getTotalCartAmount()}</span>
           </p>
           <p className="text-sm text-green-600 mt-1">Cash on Delivery</p>
           <p className="text-sm text-gray-500 mt-1">Estimated Delivery Date: <span className="font-semibold">{formattedDate}</span></p>
@@ -70,6 +79,12 @@ const Checkout = () => {
           Confirm Order
         </button>
       </form>
+
+      {showSuccess && (
+        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-purple-500 text-white px-6 py-4 rounded-xl shadow-lg text-xl font-semibold z-50">
+          🎉 Order placed successfully!
+        </div>
+      )}
     </div>
   );
 };
