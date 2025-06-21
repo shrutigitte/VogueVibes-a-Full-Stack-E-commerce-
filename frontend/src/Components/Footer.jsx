@@ -1,32 +1,61 @@
-import React from 'react'
+
+import React from 'react';
 import { FaInstagram } from 'react-icons/fa';
 import { FaFacebookF } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+
 const Footer = () => {
   return (
-    <div className='flex flex-col justify-center items-center gap-12'>
-      <div className='flex items-center gap-2'>
-        <p id='logo' className=' -ml-2 text-lg lg:text-5xl mr-2 font-medium'>VogueVibes</p>
-      </div>
-      
-        <ul className='flex list-none gap-12 text-teal-500'>
-            <li className='cursor-pointer'>Company</li>
-            <li className='cursor-pointer'>Products</li>
-            <li className='cursor-pointer'>Offices</li>
-            <li className='cursor-pointer'>About</li>
-            <li className='cursor-pointer'>Contact</li>
-        </ul>
-        <div className='flex text-4xl gap-3'>
-            <a href="https://www.instagram.com" target='_blank'><FaInstagram/></a>
-            <a href="https://www.facebook.com" target='_blank'><FaFacebookF/></a>
-            <a href="https://twitter.com" target='_blank'><FaSquareXTwitter/></a>
-        </div>
-        <div className='flex flex-col items-center gap-7 w-full mb-7 text-xl'>
-            <hr className='w-3/4 rounded-xl' />
-            <p>Copyright @2024-All Rights reserved</p>
-        </div>
-    </div>
-  )
-}
+    <div className='flex flex-col justify-center items-center gap-8 bg-purple-200 px-4 py-10'>
+      {/* Logo */}
+      <p id='logo' className='text-3xl lg:text-5xl font-medium font-cursive text-purple-900'>
+        VogueVibes
+      </p>
 
-export default Footer
+      {/* Navigation Links */}
+      <ul className='flex flex-col sm:flex-row gap-4 sm:gap-8 text-teal-500 text-lg sm:text-xl text-center'>
+        <li className='cursor-pointer hover:underline'>Company</li>
+        <li className='cursor-pointer hover:underline'>Products</li>
+        <li className='cursor-pointer hover:underline'>Offices</li>
+        <li className='cursor-pointer hover:underline'>About</li>
+        <li className='cursor-pointer hover:underline'>Contact</li>
+      </ul>
+
+      {/* Social Icons */}
+      <div className='flex gap-5 text-3xl text-purple-800'>
+        <a
+          className='p-2 rounded-lg hover:bg-purple-800 hover:text-white transition-all'
+          href="https://www.instagram.com"
+          target='_blank'
+          rel="noreferrer"
+        >
+          <FaInstagram />
+        </a>
+        <a
+          className='p-2 rounded-lg hover:bg-purple-800 hover:text-white transition-all'
+          href="https://www.facebook.com"
+          target='_blank'
+          rel="noreferrer"
+        >
+          <FaFacebookF />
+        </a>
+        <a
+          className='p-2 rounded-lg hover:bg-purple-800 hover:text-white transition-all'
+          href="https://twitter.com"
+          target='_blank'
+          rel="noreferrer"
+        >
+          <FaSquareXTwitter />
+        </a>
+      </div>
+
+      {/* Copyright */}
+      <div className='w-full flex flex-col items-center gap-4 mt-4 text-center text-sm sm:text-base'>
+        <hr className='w-3/4 border-t border-gray-300' />
+        <p className='text-black'>Copyright © 2024 - All Rights Reserved</p>
+      </div>
+    </div>
+  );
+};
+
+export default Footer;

@@ -15,10 +15,19 @@ const getDefaultCart=()=>{
 const ShopContextProvider =(props) =>{
     const [cartItems,setCartItems]=useState(getDefaultCart());
     
-    const addToCart=(itemId)=>{
-        setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
-        console.log(cartItems);
-    }
+    // const addToCart=(itemId)=>{
+    //     setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
+    //     console.log(cartItems);
+    // }
+    const addToCart = (itemId, qty = 1) => {
+  setCartItems((prev) => {
+    const newQty = Math.min(prev[itemId] + qty, 5); // don't exceed 5
+    const updated = { ...prev, [itemId]: newQty };
+    console.log('🛒 Updated Cart:', updated);
+    return updated;
+  });
+};
+
     
     const RemoveFromCart=(itemId)=>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
