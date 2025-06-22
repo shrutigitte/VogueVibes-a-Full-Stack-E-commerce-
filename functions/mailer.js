@@ -43,12 +43,12 @@
 // module.exports = sendOrderConfirmation;
 const functions = require("firebase-functions");
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
-
-// const EMAIL_USER = functions.config().gmail.email;
-// const EMAIL_PASS = functions.config().gmail.password;
-const EMAIL_USER = functions.config().gmail.email || process.env.GMAIL_EMAIL ;
-const EMAIL_PASS =  functions.config().gmail.password || process.env.GMAIL_PASSWORD ;
+const EMAIL_USER = functions.config().gmail.email;
+const EMAIL_PASS = functions.config().gmail.password;
+// const EMAIL_USER = functions.config().gmail.email || process.env.EMAIL_USER ;
+// const EMAIL_PASS =  functions.config().gmail.password || process.env.EMAIL_PASS ;
 
 
 const transporter = nodemailer.createTransport({

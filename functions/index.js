@@ -35,6 +35,7 @@ const express = require('express');
 const cors = require('cors');
 const sendOrderConfirmation = require('./mailer');
 const functions = require('firebase-functions');
+require('dotenv').config();
 
 const app = express();
 
