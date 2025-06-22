@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from 'react';
 import { ShopContext } from '../Context/ShopContext';
 import { useNavigate } from 'react-router-dom';
@@ -9,18 +10,49 @@ const Checkout = () => {
 
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
+  const [name, setName] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false); // ✅ Loading state
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // Show success and confetti
-    setShowSuccess(true);
+    const total = getTotalCartAmount();
 
-    setTimeout(() => {
-      setShowSuccess(false);
-      navigate('/');
-    }, 6000);
+    const deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + 3);
+    const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-IN', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+// http://localhost:4000/send-confirmation
+    try {
+      await fetch('https://us-central1-vogueibes.cloudfunctions.net/api/send-confirmation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          name,
+          total,
+          deliveryDate: formattedDeliveryDate
+        })
+      });
+
+      setShowSuccess(true);
+      setLoading(false);
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigate('/');
+      }, 6000);
+    } catch (err) {
+      alert('❌ Could not send confirmation email.');
+      console.error('Error sending email:', err);
+      setLoading(false);
+    }
   };
 
   // Delivery date: 3 days from today
@@ -40,6 +72,18 @@ const Checkout = () => {
       <h1 className="text-3xl font-bold text-purple-700 mb-6">Checkout</h1>
 
       <form className="w-full" onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-lg text-gray-700 mb-2">Name</label>
+          <input
+            type="text"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            placeholder="Enter your name"
+          />
+        </div>
+
         <div className="mb-4">
           <label className="block text-lg text-gray-700 mb-2">Email</label>
           <input
@@ -66,7 +110,7 @@ const Checkout = () => {
 
         <div className="mb-6">
           <p className="text-lg font-medium text-gray-700">
-            Total Amount: <span className="text-purple-700 font-bold">${getTotalCartAmount()}</span>
+            Total Amount: <span className="text-purple-700 font-bold">₹{getTotalCartAmount()}</span>
           </p>
           <p className="text-sm text-green-600 mt-1">Cash on Delivery</p>
           <p className="text-sm text-gray-500 mt-1">Estimated Delivery Date: <span className="font-semibold">{formattedDate}</span></p>
@@ -75,14 +119,23 @@ const Checkout = () => {
         <button
           type="submit"
           className="w-full py-3 bg-purple-600 text-white font-semibold rounded-md hover:bg-purple-700 transition-transform hover:scale-105"
+          disabled={loading}
         >
-          Confirm Order
+          {loading ? 'Placing Order...' : 'Confirm Order'}
         </button>
       </form>
 
+      {/* ✅ Loading Spinner */}
+      {loading && (
+        <div className="absolute inset-0 bg-white bg-opacity-60 flex items-center justify-center z-50 rounded-lg">
+          <div className="w-14 h-14 border-4 border-purple-300 border-t-purple-700 rounded-full animate-spin"></div>
+        </div>
+      )}
+
+      {/* ✅ Success Message */}
       {showSuccess && (
-        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-purple-500 text-white px-6 py-4 rounded-xl shadow-lg text-xl font-semibold z-50">
-          🎉 Order placed successfully!
+        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-8 py-6 rounded-xl shadow-lg text-lg font-semibold z-50 text-center max-w-md">
+          🎉 Order placed successfully! <br /> <span className="text-sm font-light">Check your email for confirmation.</span>
         </div>
       )}
     </div>
