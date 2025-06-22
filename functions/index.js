@@ -1,22 +1,33 @@
 
 
-
 // const express = require('express');
 // const cors = require('cors');
 // const sendOrderConfirmation = require('./mailer');
 // const functions = require('firebase-functions');
+// require('dotenv').config();
 
 // const app = express();
 
-// app.use(cors());
+// // ✅ Manually handle preflight requests
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "https://voguevibestore.vercel.app");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   res.setHeader("Access-Control-Allow-Credentials", "true");
+
+//   if (req.method === "OPTIONS") {
+//     return res.status(204).send("");
+//   }
+
+//   next();
+// });
+
 // app.use(express.json());
 
-// // Root route
 // app.get('/', (req, res) => {
 //   res.send('Express App is Running from Firebase Functions');
 // });
 
-// // Email route
 // app.post('/send-confirmation', async (req, res) => {
 //   const { email, name, total, deliveryDate } = req.body;
 
@@ -29,7 +40,6 @@
 //   }
 // });
 
-
 // exports.api = functions.https.onRequest(app);
 const express = require('express');
 const cors = require('cors');
@@ -39,20 +49,26 @@ require('dotenv').config();
 
 const app = express();
 
-// ✅ Proper CORS middleware setup
-app.use(cors({
-  origin: true, // or use "https://your-vercel-app.vercel.app" to restrict
-  credentials: true
-}));
+//  Set CORS Headers for all routes including preflight
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://voguevibesstore.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).send('');
+  }
+
+  next();
+});
 
 app.use(express.json());
 
-// ✅ Root route
 app.get('/', (req, res) => {
   res.send('Express App is Running from Firebase Functions');
 });
 
-// ✅ Email route
 app.post('/send-confirmation', async (req, res) => {
   const { email, name, total, deliveryDate } = req.body;
 
@@ -65,5 +81,5 @@ app.post('/send-confirmation', async (req, res) => {
   }
 });
 
-// ✅ Export Firebase HTTPS function
 exports.api = functions.https.onRequest(app);
+

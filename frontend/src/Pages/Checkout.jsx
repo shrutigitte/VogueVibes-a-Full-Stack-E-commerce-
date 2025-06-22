@@ -30,7 +30,7 @@ const Checkout = () => {
     year: 'numeric'
   });
 
-  // Try to send confirmation email but don't block order success
+  
   try {
     await fetch('https://us-central1-vogueibes.cloudfunctions.net/api/send-confirmation', {
       method: 'POST',
@@ -53,7 +53,7 @@ const Checkout = () => {
   setTimeout(() => {
     setShowSuccess(false);
     navigate('/');
-  }, 6000);
+  }, 8000);
 };
 
 
@@ -137,7 +137,7 @@ const Checkout = () => {
       {/* ✅ Success Message */}
       {showSuccess && (
         <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-8 py-6 rounded-xl shadow-lg text-lg font-semibold z-50 text-center max-w-md">
-          🎉 Order placed successfully! <br /> <span className="text-sm font-light">Check your email for confirmation.</span>
+          🎉 Order placed successfully! <br /> <span className="text-sm font-light">Could not connect to backend right now so email could not be sent</span>
         </div>
       )}
     </div>
