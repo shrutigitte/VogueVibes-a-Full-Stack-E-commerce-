@@ -14,46 +14,48 @@ const Checkout = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [loading, setLoading] = useState(false); // ✅ Loading state
 
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
 
-    const total = getTotalCartAmount();
+  const total = getTotalCartAmount();
 
-    const deliveryDate = new Date();
-    deliveryDate.setDate(deliveryDate.getDate() + 3);
-    const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-IN', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+  const deliveryDate = new Date();
+  deliveryDate.setDate(deliveryDate.getDate() + 3);
+  const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-IN', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  // Try to send confirmation email but don't block order success
+  try {
+    await fetch('https://us-central1-vogueibes.cloudfunctions.net/send-confirmation', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        name,
+        total,
+        deliveryDate: formattedDeliveryDate
+      })
     });
+  } catch (err) {
+    console.error('❌ Email sending failed:', err);
+    // Optionally alert the user that the email failed
+  }
 
-// http://localhost:4000/send-confirmation
-    try {
-      await fetch('https://us-central1-vogueibes.cloudfunctions.net/api/send-confirmation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          name,
-          total,
-          deliveryDate: formattedDeliveryDate
-        })
-      });
+  // ✅ Show order placed success message regardless of email result
+  setShowSuccess(true);
+  setLoading(false);
+  setTimeout(() => {
+    setShowSuccess(false);
+    navigate('/');
+  }, 6000);
+};
 
-      setShowSuccess(true);
-      setLoading(false);
-      setTimeout(() => {
-        setShowSuccess(false);
-        navigate('/');
-      }, 6000);
-    } catch (err) {
-      alert('❌ Could not send confirmation email.');
-      console.error('Error sending email:', err);
-      setLoading(false);
-    }
-  };
 
   // Delivery date: 3 days from today
   const deliveryDate = new Date();
@@ -110,7 +112,7 @@ const Checkout = () => {
 
         <div className="mb-6">
           <p className="text-lg font-medium text-gray-700">
-            Total Amount: <span className="text-purple-700 font-bold">₹{getTotalCartAmount()}</span>
+            Total Amount: <span className="text-purple-700 font-bold">${getTotalCartAmount()}</span>
           </p>
           <p className="text-sm text-green-600 mt-1">Cash on Delivery</p>
           <p className="text-sm text-gray-500 mt-1">Estimated Delivery Date: <span className="font-semibold">{formattedDate}</span></p>
