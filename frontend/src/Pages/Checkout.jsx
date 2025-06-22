@@ -32,7 +32,7 @@ const Checkout = () => {
 
   // Try to send confirmation email but don't block order success
   try {
-    await fetch('https://us-central1-vogueibes.cloudfunctions.net/send-confirmation', {
+    await fetch('https://us-central1-vogueibes.cloudfunctions.net/api/send-confirmation', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
